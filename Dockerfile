@@ -7,6 +7,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY app_satisfaction.py .
 
-EXPOSE 5000
+EXPOSE 5001
 
 ENTRYPOINT [ "python", "app.satisfaction.py" ]
