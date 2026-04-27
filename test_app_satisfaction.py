@@ -3,6 +3,7 @@ from unittest.mock import Mock, patch
 
 import numpy as np
 import pytest
+
 from app_satisfaction import app, prediction_history
 
 
