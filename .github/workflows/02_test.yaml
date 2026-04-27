@@ -1,13 +1,13 @@
-#  - Se déclenche sur push et pull request
-#  - Configure Python 3.11.9
-#  - Installe les dépendances
-#  - Exécute les tests avec pytest
-
 name: tests_on_push
 
 on :
-  - push
-  - pull_request
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+    
 
 jobs:
   test:
