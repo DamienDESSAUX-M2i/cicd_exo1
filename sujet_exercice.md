@@ -51,3 +51,20 @@ api_prediction/
 5. Observer que les tests s'exécutent automatiquement
 
 **Validation** : Les tests doivent s'exécuter sur votre PR et afficher un statut vert
+
+### **Exercice 4 : Artéfacts et rapports de couverture**
+
+**Objectif** : Générer et sauvegarder un rapport de couverture de code
+
+**Consignes** :
+
+1. Modifier le workflow `02_test.yml` pour ajouter (gardez les étapes précédentes) :
+   - Générer un rapport de couverture avec `pytest --cov=. --cov-report=html --cov-report=term`
+   - Uploader le rapport HTML comme artéfact nommé `coverage-report`
+   - (bonus) Créer un output qui affiche le pourcentage de couverture
+
+2. Ajouter un second job `report` qui :
+   - Dépend du job `test` (utilisez `needs`)
+   - Affiche un message de succès avec le résultat des tests
+
+**Validation** : Téléchargez l'artéfact depuis GitHub Actions et consultez le rapport HTML

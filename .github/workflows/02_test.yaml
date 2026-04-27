@@ -1,26 +1,57 @@
 name: tests_on_push
 
-on :
+on:
   push:
     branches:
       - main
   pull_request:
     branches:
       - main
-    
 
 jobs:
   test:
-    name: tests
+    name: test
     runs-on: ubuntu-latest
+    outputs:
+      coverage: ${{ steps.coverage.outputs.coverage }}
+
     steps:
       - name: checkout_repository
         uses: actions/checkout@v6
+
       - name: setup_python_3_11_9
         uses: actions/setup-python@v6
         with:
           python-version: "3.11.9"
+
       - name: install_dependencies
         run: pip install --no-cache-dir -r requirements.txt
+
       - name: run_tests
-        run: pytest
+        run: pytest --cov=. --cov-report=html --cov-report=term
+
+      - name: extract_coverage_percentage
+        id: coverage
+        run: |
+          COVERAGE=$(coverage report | tail -n 1 | awk '{print $4}' | sed 's/%//')
+
+          echo "Coverage: ${COVERAGE}%"
+          echo "coverage=${COVERAGE}" >> $GITHUB_OUTPUT
+
+      - name: display_coverage_summary
+        run: echo "Test coverage is ${{ steps.coverage.outputs.coverage }}%"
+
+      - name: upload_coverage
+        uses: actions/upload-artifact@v7
+        with:
+          name: coverage-report
+          path: htmlcov
+
+  report:
+    name: report
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: display_coverage
+        run: echo "Test coverage is ${{ needs.test.outputs.coverage }}%"
