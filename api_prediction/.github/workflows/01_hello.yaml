@@ -1,0 +1,11 @@
+name: Premier workflow
+
+on: push
+
+jobs:
+  job-hello:
+    name: Hello CI/CD
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say Hello
+        run: time=$(date +%H%M); date=$(date +%Y%m%d); echo "$date $time - Bienvenue dans la CI/CD pour l'API de satisfaction !"
