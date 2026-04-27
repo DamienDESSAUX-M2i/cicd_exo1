@@ -6,7 +6,6 @@ Cette API permet de :
 - Faire des prédictions de satisfaction client (1-10)
 - Faire des prédictions batch
 - Consulter l'historique des prédictions
-- pouet
 """
 
 import pickle
