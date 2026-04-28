@@ -68,3 +68,19 @@ api_prediction/
    - Affiche un message de succès avec le résultat des tests
 
 **Validation** : Téléchargez l'artéfact depuis GitHub Actions et consultez le rapport HTML
+
+### **Exercice 5 : Matrice de tests multi-versions**
+
+
+**Objectif** : Tester l'API sur plusieurs versions de Python et systèmes d'exploitation
+
+**Consignes** :
+
+1. Créer un workflow `03_matrix.yml` qui teste sur :
+   - Python : `3.9`, `3.10`, `3.11`
+   - OS : `ubuntu-latest`, `windows-latest`
+2. Utiliser une stratégie de matrice
+3. Les tests doivent s'exécuter en parallèle
+4. Afficher la version Python et l'OS utilisés dans les logs
+
+**Validation** : Observer 6 jobs qui s'exécutent en parallèle (3 versions × 2 OS)
