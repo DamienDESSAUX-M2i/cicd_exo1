@@ -69,8 +69,8 @@ jobs:
           HF_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
           HF_SPACENAME: ${{ secrets.HUGGINGFACE_SPACENAME }}
         run: |
-          git config user.email "github-actions[bot]@user.noreply.github.com"
-          git config user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@user.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
 
           git clone https://user:$HF_TOKEN@huggingface.co/spaces/$HF_SPACENAME hf-space
 
