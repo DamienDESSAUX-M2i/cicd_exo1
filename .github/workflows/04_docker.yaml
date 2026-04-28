@@ -45,3 +45,44 @@ jobs:
         run: |
           docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/cicd_exo .
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/cicd_exo
+
+  hugging_face:
+    name: deploy_hugging_face
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - name: checkout_repository
+        uses: actions/checkout@v6
+
+      - name: set_up_python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11.9'
+
+      - name: install_hugging_face
+        run: pip install huggingface[cli]
+
+      - name: push
+        env:
+          HF_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
+          HF_SPACENAME: ${{ secrets.HUGGINGFACE_SPACENAME }}
+        run: |
+          hf auth login --token $HF_TOKEN
+
+          git clone https://huggingface.co/spaces/$HF_SPACENAME hf-space
+
+          cd hf-space
+
+          cp ../app_satisfaction.py ./
+          cp ../satisfaction_model.pkl ./
+          cp ../Dockerfile ./
+          cp ../requirements.txt ./
+
+          git config user.email "github-actions[bot]@user.noreply.github.com"
+          git config user.name "github-actions[bot]"
+
+          git add .
+          git commit -m "Deploy from Github actions"
+          git push https://user:$HF_TOKEN@huggingface.co/spaces/$HF_SPACENAME main
