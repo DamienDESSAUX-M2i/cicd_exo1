@@ -49,7 +49,7 @@ jobs:
   hugging_face:
     name: deploy_hugging_face
     runs-on: ubuntu-latest
-    needs: test
+    needs: tests
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
     steps:
