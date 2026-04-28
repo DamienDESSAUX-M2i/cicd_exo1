@@ -69,9 +69,10 @@ jobs:
           HF_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
           HF_SPACENAME: ${{ secrets.HUGGINGFACE_SPACENAME }}
         run: |
-          hf auth login --token $HF_TOKEN
+          git config user.email "github-actions[bot]@user.noreply.github.com"
+          git config user.name "github-actions[bot]"
 
-          git clone https://huggingface.co/spaces/$HF_SPACENAME hf-space
+          git clone https://user:$HF_TOKEN@huggingface.co/spaces/$HF_SPACENAME hf-space
 
           cd hf-space
 
@@ -79,9 +80,6 @@ jobs:
           cp ../satisfaction_model.pkl ./
           cp ../Dockerfile ./
           cp ../requirements.txt ./
-
-          git config user.email "github-actions[bot]@user.noreply.github.com"
-          git config user.name "github-actions[bot]"
 
           git add .
           git commit -m "Deploy from Github actions"
