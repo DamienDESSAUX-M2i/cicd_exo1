@@ -84,3 +84,24 @@ api_prediction/
 4. Afficher la version Python et l'OS utilisés dans les logs
 
 **Validation** : Observer 6 jobs qui s'exécutent en parallèle (3 versions × 2 OS)
+
+### **Exercice 6 : Build et publication Docker**
+
+**Objectif** : Créer une image Docker et la publier sur Docker Hub
+
+**Consignes** :
+
+1. Créer un `Dockerfile` dans le dossier racine
+
+2. Créer un workflow `04_docker.yml` avec 2 jobs :
+   - **Job 1 `test`** : Exécute les tests Python
+   - **Job 2 `build-push`** :
+     - Dépend de `test` 
+     - Build l'image Docker
+     - Se connecte à Docker Hub 
+     - Publie l'image (uniquement sur `main`)
+     - Tag l'image avec `latest`
+
+3. Configurer les secrets GitHub :
+   - `DOCKER_USERNAME` : votre nom d'utilisateur Docker Hub
+   - `DOCKER_TOKEN` : créez un token depuis Docker Hub 
