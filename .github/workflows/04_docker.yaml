@@ -77,7 +77,7 @@ jobs:
           cd hf-space
 
           cp ../app_satisfaction.py ./
-          cp ../satisfaction_model.pkl ./
+          # cp ../satisfaction_model.pkl ./
           cp ../Dockerfile ./
           cp ../requirements.txt ./
 
